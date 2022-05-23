@@ -44,6 +44,7 @@ ORDER BY so_lan_dat_phong;
 với Số Lượng và Giá là từ bảng dich_vu_di_kem, hop_dong_chi_tiet) cho tất cả các khách hàng đã từng đặt phòng. 
 (những khách hàng nào chưa từng đặt phòng cũng phải hiển thị ra).
 */
+
 SELECT * FROM hop_dong;
 
 SELECT kh.ma_khach_hang, kh.ho_ten, lk.ten_loai_khach, hd.ma_hop_dong, dv.ten_dich_vu, 
@@ -55,4 +56,20 @@ LEFT JOIN dich_vu as dv ON dv.ma_dich_vu = hd.ma_dich_vu
 LEFT JOIN hop_dong_chi_tiet as hdct ON hdct.ma_hop_dong = hd.ma_hop_dong
 LEFT JOIN  dich_vu_di_kem as dvdk ON dvdk.ma_dich_vu_di_kem = hdct.ma_dich_vu_di_kem;
 
-SELECT * FROM hop_dong INNER JOIN hop_dong_chi_tiet ON hop_dong.ma_hop_dong = hop_dong_chi_tiet.ma_hop_dong;
+
+SELECT kh.ma_khach_hang, kh.ho_ten, sum(hdct.so_luong * dvdk.gia)+ tmp.chi_phi_thue FROM khach_hang kh
+LEFT JOIN hop_dong hd on hd.ma_khach_hang= kh.ma_khach_hang
+LEFT JOIN dich_vu dv on dv.ma_dich_vu= hd.ma_hop_dong
+LEFT JOIN hop_dong_chi_tiet hdct on hdct.ma_hop_dong= hd.ma_hop_dong
+LEFT JOIN dich_vu_di_kem dvdk on dvdk.ma_dich_vu_di_kem = hdct.ma_dich_vu_di_kem
+LEFT JOIN 
+(SELECT
+	kh1.ma_khach_hang as ma_khach_hang,
+	kh1.ho_ten, sum(dv1.chi_phi_thue) as chi_phi_thue
+	FROM khach_hang kh1
+	JOIN hop_dong hd1 on hd1.ma_khach_hang = kh1.ma_khach_hang
+	JOIN dich_vu dv1 on dv1.ma_dich_vu= hd1.ma_hop_dong
+	GROUP BY kh1.ma_khach_hang) tmp on tmp.ma_khach_hang = kh.ma_khach_hang
+	GROUP BY hd.ma_khach_hang;
+    
+    
