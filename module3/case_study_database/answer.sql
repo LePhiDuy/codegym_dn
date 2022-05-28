@@ -48,13 +48,20 @@ với Số Lượng và Giá là từ bảng dich_vu_di_kem, hop_dong_chi_tiet) 
 SELECT * FROM hop_dong;
 
 SELECT kh.ma_khach_hang, kh.ho_ten, lk.ten_loai_khach, hd.ma_hop_dong, dv.ten_dich_vu, 
-hd.ngay_lam_hop_dong, hd.ngay_ket_thuc, hdct.ma_hop_dong_chi_tiet,
-(IFNULL(dv.chi_phi_thue,0) + IFNULL(hdct.so_luong, 0) * IFNULL(dvdk.gia, 0)) AS tong_tien
+hd.ngay_lam_hop_dong, hd.ngay_ket_thuc,
+(IFNULL(tmp.chi_phi_thue,0) + SUM(IFNULL(hdct.so_luong, 0) * IFNULL(dvdk.gia, 0))) AS tong_tien
 FROM (khach_hang as kh INNER JOIN loai_khach as lk ON kh.ma_loai_khach = lk.ma_loai_khach)
 LEFT JOIN hop_dong as hd ON hd.ma_khach_hang = kh.ma_khach_hang
 LEFT JOIN dich_vu as dv ON dv.ma_dich_vu = hd.ma_dich_vu
 LEFT JOIN hop_dong_chi_tiet as hdct ON hdct.ma_hop_dong = hd.ma_hop_dong
-LEFT JOIN  dich_vu_di_kem as dvdk ON dvdk.ma_dich_vu_di_kem = hdct.ma_dich_vu_di_kem;
+LEFT JOIN  dich_vu_di_kem as dvdk ON dvdk.ma_dich_vu_di_kem = hdct.ma_dich_vu_di_kem
+LEFT JOIN 
+(SELECT kh1.ma_khach_hang, SUM(dv1.chi_phi_thue) as chi_phi_thue
+FROM khach_hang as kh1 INNER JOIN hop_dong as hd1 ON kh1.ma_khach_hang = hd1.ma_khach_hang
+INNER JOIN dich_vu as dv1 ON hd1.ma_dich_vu = dv1.ma_dich_vu
+GROUP BY kh1.ma_khach_hang) as tmp ON tmp.ma_khach_hang = kh.ma_khach_hang
+GROUP BY hd.ma_khach_hang;
+	
 
 
 SELECT kh.ma_khach_hang, kh.ho_ten, sum(hdct.so_luong * dvdk.gia)+ tmp.chi_phi_thue FROM khach_hang kh
@@ -71,5 +78,15 @@ LEFT JOIN
 	JOIN dich_vu dv1 on dv1.ma_dich_vu= hd1.ma_hop_dong
 	GROUP BY kh1.ma_khach_hang) tmp on tmp.ma_khach_hang = kh.ma_khach_hang
 	GROUP BY hd.ma_khach_hang;
-    
-    
+
+/*
+6.	Hiển thị ma_dich_vu, ten_dich_vu, dien_tich, chi_phi_thue, ten_loai_dich_vu 
+của tất cả các loại dịch vụ chưa từng được khách hàng thực hiện đặt từ quý 1 của năm 2021 (Quý 1 là tháng 1, 2, 3).
+*/
+
+SELECT dv.ma_dich_vu, ten_dich_vu, dien_tich, chi_phi_thue, ten_loai_dich_vu FROM dich_vu as dv
+INNER JOIN loai_dich_vu as ldv ON dv.ma_loai_dich_vu = ldv.ma_loai_dich_vu
+INNER JOIN hop_dong as hd ON hd.ma_dich_vu = dv.ma_dich_vu
+WHERE DATE(hd.ngay_lam_hop_dong) NOT BETWEEN '2021-01-01' AND '2021-03-31';
+
+SELECT DATE(ngay_lam_hop_dong) FROM hop_dong;
