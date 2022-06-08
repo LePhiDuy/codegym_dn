@@ -1,0 +1,21 @@
+h1 {
+    border-bottom: groove;
+    margin-bottom: 5px;
+}
+#introduce {
+    margin-bottom: 15px;
+    margin-top: 5px;
+}
+.content {
+    text-indent: 30px;
+    text-align: justify;
+}
+
+a {
+    text-decoration: none;
+    color: blue;
+}
+.super {
+    font-size: 8px;
+    color: blue;
+}

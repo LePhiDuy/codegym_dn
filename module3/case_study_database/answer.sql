@@ -90,3 +90,107 @@ INNER JOIN hop_dong as hd ON hd.ma_dich_vu = dv.ma_dich_vu
 WHERE DATE(hd.ngay_lam_hop_dong) NOT BETWEEN '2021-01-01' AND '2021-03-31';
 
 SELECT DATE(ngay_lam_hop_dong) FROM hop_dong;
+
+/* 7.Hiển thị thông tin ma_dich_vu, ten_dich_vu, dien_tich, so_nguoi_toi_da, chi_phi_thue, ten_loai_dich_vu 
+của tất cả các loại dịch vụ đã từng được khách hàng đặt phòng trong năm 2020 nhưng chưa từng được khách hàng đặt phòng trong năm 2021. */
+
+SELECT dv.ma_dich_vu, ten_dich_vu, dien_tich, chi_phi_thue, ten_loai_dich_vu FROM dich_vu as dv
+INNER JOIN loai_dich_vu as ldv ON dv.ma_loai_dich_vu = ldv.ma_loai_dich_vu
+INNER JOIN hop_dong as hd ON hd.ma_dich_vu = dv.ma_dich_vu
+WHERE YEAR(hd.ngay_lam_hop_dong) = 2020 AND YEAR(hd.ngay_lam_hop_dong) <> 2021
+GROUP BY dv.ma_dich_vu;
+
+/* 8.Hiển thị thông tin ho_ten khách hàng có trong hệ thống, với yêu cầu ho_ten không trùng nhau. */
+SELECT DISTINCT ho_ten FROM khach_hang;
+
+-- C2
+SELECT ho_ten FROM khach_hang GROUP BY ho_ten;
+
+-- C3
+SELECT ho_ten FROM khach_hang
+UNION SELECT ho_ten FROM khach_hang;
+
+/* 9.Thực hiện thống kê doanh thu theo tháng, 
+nghĩa là tương ứng với mỗi tháng trong năm 2021 thì sẽ có bao nhiêu khách hàng thực hiện đặt phòng.
+*/
+SELECT tmp.`month`, IFNULL(hop_dong1.doanh_thu,0) FROM 
+(SELECT 1 AS `month` 
+UNION SELECT 2 AS `month` 
+UNION SELECT 3 AS `month` 
+UNION SELECT 4 AS `month` 
+UNION SELECT 5 AS `month` 
+UNION SELECT 6 AS `month` 
+UNION SELECT 7 AS `month` 
+UNION SELECT 8 AS `month` 
+UNION SELECT 9 AS `month` 
+UNION SELECT 10 AS `month` 
+UNION SELECT 11 AS `month` 
+UNION SELECT 12 AS `month`) AS tmp
+LEFT JOIN  
+(SELECT MONTH(ngay_lam_hop_dong) AS `month`, count(ma_khach_hang) as doanh_thu FROM hop_dong
+			WHERE YEAR(ngay_lam_hop_dong) = '2021' 
+            GROUP BY `month`) as hop_dong1 ON tmp.`month` = hop_dong1.`month`;
+            
+/* 10.Hiển thị thông tin tương ứng với từng hợp đồng thì đã sử dụng bao nhiêu dịch vụ đi kèm. 
+Kết quả hiển thị bao gồm ma_hop_dong, ngay_lam_hop_dong, ngay_ket_thuc, tien_dat_coc, so_luong_dich_vu_di_kem 
+(được tính dựa trên việc sum so_luong ở dich_vu_di_kem).*/
+
+SELECT hd.ma_hop_dong, count(hdct.ma_hop_dong_chi_tiet) FROM hop_dong as hd
+LEFT JOIN hop_dong_chi_tiet as hdct
+ON hd.ma_hop_dong = hdct.ma_hop_dong
+GROUP BY hd.ma_hop_dong;
+
+/* 11.	Hiển thị thông tin các dịch vụ đi kèm đã được sử dụng bởi những khách hàng có ten_loai_khach là “Diamond” 
+và có dia_chi ở “Vinh” hoặc “Quảng Ngãi”.
+*/
+SELECT 
+    dvdk.*
+FROM
+    dich_vu_di_kem AS dvdk
+        INNER JOIN
+    hop_dong_chi_tiet AS hdct ON hdct.ma_dich_vu_di_kem = dvdk.ma_dich_vu_di_kem
+        INNER JOIN
+    hop_dong AS hd ON hd.ma_hop_dong = hdct.ma_hop_dong
+        INNER JOIN
+    khach_hang AS kh ON hd.ma_khach_hang = kh.ma_khach_hang
+        INNER JOIN
+    loai_khach AS lk ON lk.ma_loai_khach = kh.ma_loai_khach
+WHERE
+    lk.ten_loai_khach = 'Diamond'
+        AND (kh.dia_chi LIKE '%Vinh'
+        OR kh.dia_chi LIKE '%Quảng Ngãi')
+ 
+ /*
+ 12.Hiển thị thông tin ma_hop_dong, ho_ten (nhân viên), ho_ten (khách hàng), so_dien_thoai (khách hàng),
+ ten_dich_vu, so_luong_dich_vu_di_kem (được tính dựa trên việc sum so_luong ở dich_vu_di_kem), tien_dat_coc 
+ của tất cả các dịch vụ đã từng được khách hàng đặt vào 3 tháng cuối năm 2020
+ nhưng chưa từng được khách hàng đặt vào 6 tháng đầu năm 2021. */
+ 
+ SELECT hd.ma_hop_dong, nv.ho_ten, kh.ho_ten, kh.so_dien_thoai, dv.ten_dich_vu, COUNT(ma_hop_dong_chi_tiet) as so_luong_dich_vu_di_kem FROM hop_dong as hd 
+ JOIN khach_hang as kh ON kh.ma_khach_hang = hd.ma_khach_hang
+ JOIN nhan_vien as nv ON nv.ma_nhan_vien = hd.ma_nhan_vien
+ JOIN dich_vu as dv ON dv.ma_dich_vu = hd.ma_dich_vu
+ JOIN hop_dong_chi_tiet as hdct ON hdct.ma_hop_dong = hd.ma_hop_dong
+ WHERE (hd.ngay_lam_hop_dong BETWEEN '2020-10-1' AND '2020-12-31') 
+		AND (hd.ngay_lam_hop_dong NOT BETWEEN '2021-01-1' AND '2020-06-30') 
+ GROUP BY hd.ma_hop_dong;
+ 
+ /* 
+ 13.Hiển thị thông tin các Dịch vụ đi kèm được sử dụng nhiều nhất bởi các Khách hàng đã đặt phòng. 
+ (Lưu ý là có thể có nhiều dịch vụ có số lần sử dụng nhiều như nhau).
+ */
+ 
+SELECT dvdk.*, count(dvdk.ma_dich_vu_di_kem) as so_lan_su_dung FROM dich_vu_di_kem as dvdk
+INNER JOIN hop_dong_chi_tiet as hdct
+ON hdct.ma_dich_vu_di_kem = dvdk.ma_dich_vu_di_kem
+WHERE so_lan_su_dung >= 1
+GROUP BY dvdk.ma_dich_vu_di_kem;
+ALL (SELECT count(dvdk.ma_dich_vu_di_kem) FROM dich_vu_di_kem as dvdk
+INNER JOIN hop_dong_chi_tiet as hdct
+ON hdct.ma_dich_vu_di_kem = dvdk.ma_dich_vu_di_kem
+GROUP BY dvdk.ma_dich_vu_di_kem);
+-- ALL (SELECT MAX(tmp.so_lan_su_dung) FROM tmp);
+
+
+
+
