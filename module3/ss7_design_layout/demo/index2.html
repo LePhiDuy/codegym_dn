@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .container > div {
+            background-color: chocolate;
+            border: solid 1px white;
+            padding: 20px;
+            font-size: 30px;
+            text-align: center;
+        }
+        .container {
+            display: grid;
+            grid-template-areas:
+                'header header header'
+                'menuLeft content menuRight'
+                'menuLeft footer footer';
+        }
+
+        .item1 {grid-area: header}
+        .item2 {grid-area: menuLeft}
+        .item3 {grid-area: content}
+        .item4 {grid-area: menuRight}
+        .item5 {grid-area: footer}
+
+        @media only screen and (max-width: 500px) {
+            .container {
+                display: grid;
+                grid-template-areas:
+                    'header header header'
+                    'content content content'
+                    'footer footer footer';
+            }
+            .item2, .item4 {
+                display: none;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="item1">header</div>
+        <div class="item2">menuLeft</div>
+        <div class="item3">content</div>
+        <div class="item4">menuRight</div>
+        <div class="item5">footer</div>
+    </div>
+</body>
+</html>
