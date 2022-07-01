@@ -10,7 +10,7 @@ import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(name = "CustomerServlet", urlPatterns = "/customers")
+@WebServlet(name = "CustomerServlet", urlPatterns = {"/customers", ""})
 public class CustomerServlet extends HttpServlet {
     private ICustomerService customers = new CustomerServiceImpl();
     @Override
@@ -37,7 +37,6 @@ public class CustomerServlet extends HttpServlet {
                 break;
         }
     }
-
     private void viewCustomerDetail(HttpServletRequest request, HttpServletResponse response) {
         int id = Integer.parseInt(request.getParameter("id"));
         Customer customer = this.customers.findById(id);
