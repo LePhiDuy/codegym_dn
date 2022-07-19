@@ -1,0 +1,50 @@
+const englishquestions =[
+    {
+        question:"Este có mùi dứa là.",
+        A: "Isoamyl Axetat",
+        B:"Etyl Butirat",
+        C: "Etyl Axetat",
+        D:"Geranyl Axctat",
+        correct: 'B',
+    },
+    {
+        question:" Đun nóng este HCOOCH3 với một lượng vừa đủ dung dịch NaOH, sản phẩm thu được là",
+        A: "CH3COONa và C2H5OH",
+        B: "HCOONa và CH3OH",
+        C: "HCOONa và C2H5OH",
+        D:"CH3COONa và CH3OH",
+        correct: 'B',
+    },
+    {
+        question: "Xà phòng hoá chất nào sau đây thu được glixerol ?",
+        A: "Tristearin",
+        B: "Tripanmitin",
+        C: "Tristearin",
+        D:"Trilinolein",
+        correct: 'C',
+    },
+    {
+        question: "Xà phòng hoá chất nào sau đây thu được glixerol ?",
+        A: "Tristearin",
+        B: "Tripanmitin",
+        C: "Tristearin",
+        D:"Trilinolein",
+        correct: 'C',
+    },
+    {
+        question: "Phát biểu nào dưới đây không đúng ?",
+        A: "Chất béo không tan trong nước.",
+        B: "Phân tử chất béo chứa nhóm chức este.",
+        C: "Dầu ăn và dầu mỏ có cùng thành phần nguyên tố.",
+        D:" Chất béo còn có tên là triglixerit.",
+        correct: 'C',
+    },
+    {
+        question: " Xà phòng hoá chất nào sau đây thu được glixerol ?",
+        A: "Tristearin ",
+        B: "Metyl Axetat",
+        C: "Metyl Fomat",
+        D: "Benzyl Axetat",
+        correct: 'A',
+    }
+]
