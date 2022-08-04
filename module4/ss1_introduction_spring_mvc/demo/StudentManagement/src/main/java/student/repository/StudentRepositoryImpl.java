@@ -19,4 +19,18 @@ public class StudentRepositoryImpl implements IStudentRepository{
     public List<Student> findAll() {
         return students;
     }
+
+    @Override
+    public void save(Student student) {
+        students.add(student);
+    }
+    public List<Student> findByName(String keyword) {
+        List<Student> result = new ArrayList<>();
+        for(Student student: students){
+            if(student.getName().contains(keyword)){
+                result.add(student);
+            }
+        }
+        return result;
+    }
 }
