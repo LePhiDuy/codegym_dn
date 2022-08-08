@@ -126,7 +126,7 @@ public class AppConfig extends WebMvcConfigurerAdapter implements ApplicationCon
     }
     @Override
     public void addFormatters(FormatterRegistry registry) {
-        LocalDateFormatter localDateFormatter = new LocalDateFormatter("MM/dd/yyyy");
+        LocalDateFormatter localDateFormatter = new LocalDateFormatter("yyyy-MM-dd");
         registry.addFormatter(localDateFormatter);
     }
 }
