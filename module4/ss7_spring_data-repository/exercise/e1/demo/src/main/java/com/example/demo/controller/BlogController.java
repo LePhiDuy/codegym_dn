@@ -29,14 +29,13 @@ public class BlogController {
 
     @GetMapping("")
     public String home(@RequestParam("q") Optional<String> q,
-                       @PageableDefault(value = 3, sort = "dateCreate", direction = Sort.Direction.ASC)
+                       @PageableDefault(value = 3, sort = "name", direction = Sort.Direction.ASC)
                                Pageable pageable, Model model) {
-        Pageable a = PageRequest.of(0,5, Sort.by(Sort.Direction.ASC,"name"));
-
         if (!q.isPresent()) {
-            model.addAttribute("blogs", blogService.findAll(a));
+            model.addAttribute("blogs", blogService.findAll(pageable));
         } else {
-            model.addAttribute("blogs", blogService.searchByName(q.get(), a));
+            model.addAttribute("blogs", blogService.searchByName(q.get(), pageable));
+            model.addAttribute("q", q.get());
         }
         return "blogs/list";
     }
