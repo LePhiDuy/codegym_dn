@@ -6,6 +6,7 @@
 </head>
 <body>
 <h3>Register User</h3>
+<span th:text="${cookie.value}"></span>
 <form th:action="@{/save}" th:object="${userDto}" method="post">
     <div>
         <label>First Name</label>

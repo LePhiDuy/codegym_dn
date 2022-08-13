@@ -9,9 +9,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 @Controller
@@ -19,8 +22,13 @@ public class UserController {
     @Autowired
     IUserService userService;
     @GetMapping("register")
-    public String register(Model model) {
+    public String register(Model model, @CookieValue(value = "counter", defaultValue = "0") Long counter, HttpServletResponse httpServletResponse) {
+        counter++;
+        Cookie cookie = new Cookie("counter", counter.toString());
+        cookie.setMaxAge(30);
+        httpServletResponse.addCookie(cookie);
         model.addAttribute("userDto", new UserDto());
+        model.addAttribute("cookie", cookie);
         return "register";
     }
     @PostMapping("save")
