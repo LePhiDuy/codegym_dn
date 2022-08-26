@@ -30,7 +30,6 @@ public class ProductController {
         model.addAttribute("q", q);
         model.addAttribute("sort", pageable.getSort());
         model.addAttribute("isError", bindingResult.hasErrors());
-
         return "product";
     }
 
