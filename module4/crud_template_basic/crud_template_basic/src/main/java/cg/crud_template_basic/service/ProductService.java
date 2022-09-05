@@ -9,9 +9,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.util.StringUtils;
 
+import javax.transaction.Transactional;
 import java.time.LocalDate;
 
 @Service
+@Transactional
 public class ProductService {
     @Autowired
     private ProductRepository productRepository;

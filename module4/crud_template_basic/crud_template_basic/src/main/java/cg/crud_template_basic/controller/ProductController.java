@@ -48,7 +48,6 @@ public class ProductController {
     public String delete(@RequestParam int id, RedirectAttributes redirect){
         productService.delete(id);
         redirect.addFlashAttribute("msg", "Deleted successfully");
-
         return "redirect:/";
     }
 }

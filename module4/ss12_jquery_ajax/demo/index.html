@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/jquery.min.js"></script>
+</head>
+<body>
+<p id="hello">Hello</p>
+<button>Click me</button>
+<div style="position: relative; height: 100px;width: 100px; background: green" >
+
+</div>
+<script>
+    $("#hello").text("A1221I1")
+    $(document).ready(function () {
+        $("button").click(function () {
+            // $("#hello").hide();
+            // $("#hello").fadeOut(3000);
+            $("div").animate({
+                left: '200px',
+                height: '+=100px',
+                width: '+=100px'
+            })
+        })
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+<h1>Student List</h1>
+<input type="text">
+<table class="table table-striped table-inverse table-responsive">
+    <thead class="thead-inverse">
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>gender</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    </tbody>
+</table>
+<script src="js/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $.ajax({
+                url: "http://localhost:8080/student/api/v1",
+                type: "GET",
+                dataType: "JSON",
+                success: function (data) {
+                    console.log(data);
+                    let tr =[];
+                    for (let i = 0; i < data.length; i++) {
+                        tr.push("<tr>");
+                        tr.push("<td>" + data[i].id + "</td>");
+                        tr.push("<td>" + data[i].name + "</td>");
+                        tr.push("<td>" + data[i].gender + "</td>");
+                        tr.push("</tr>")
+                    }
+                    $("table").append(tr.join(""));
+                }
+            }
+        )
+        $("input").keyup(function () {
+            let value = $("this").val();
+            $("tbody").empty();
+        })
+    })
+</script>
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+</body>
+</html>

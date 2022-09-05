@@ -92,7 +92,8 @@
                 </thead>
                 <tbody>
                 <tr th:each="p, i: ${res}">
-                    <td th:text="${i.count + res.getNumber() * res.getSize()}"></td>
+                    <td th:text="${i.count}"></td>
+<!--                    <td th:text="${i.count + res.getNumber() * res.getSize()}"></td>-->
                     <td th:text="${p.name}"></td>
                     <td th:text="${p.price}"></td>
                     <td th:text="${p.expDate}"></td>
@@ -101,7 +102,8 @@
                     <td>
                         <a href="#addEditModal" class="edit" data-bs-toggle="modal" th:data-id="${p.id}"
                            th:data-name="${p.name}"
-                           th:data-price="${p?.price}" th:data-category_id="${p.category?.id}"
+                           th:data-price="${p?.price}"
+                           th:data-category_id="${p.category?.id}"
                            th:data-category_name="${p.category?.name}"
                            th:data-exp_date="${p.expDate}"
                            th:data-manufacturer="${p.manufacturer}">
