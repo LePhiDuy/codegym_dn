@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="webjars/bootstrap/4.6.0/css/bootstrap.min.css">
+    <script type="text/javascript" src="/webjars/jquery/3.6.1/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="webjars/bootstrap/4.6.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="webjars/popper.js/2.5.4/umd/popper.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <h2 class="text-center mt-4 mb-4">Add new agreement</h2>
+    <form method="post" th:object="${agreementDto}">
+        <div class="mb-3">
+            <label class="form-label">Mã hợp đồng</label>
+            <input class="form-control" name="id"/>
+<!--            <label id="lbId" style="color: #fc9494" th:if="${#fields.hasErrors('id')}"-->
+<!--                   th:errors="*{id}"></label>-->
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Mã phòng</label>
+            <select name="hostel">
+                <option th:each="hostel : ${hostelFree}" th:text="${hostel.id}" th:value= "${hostel.id}"> </option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Tên người thuê</label>
+            <input type="text" class="namePerson" name="personName"/>
+<!--            <label id="lbExpDate" style="color: #fc9494" th:if="${#fields.hasErrors('expDate')}"-->
+<!--                   th:errors="*{expDate}"></label>-->
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Số CMND</label>
+            <input class="form-control" name="cmnd"/>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Ngày làm hợp đồng</label>
+            <input type="date" class="date form-control" name="date"/>
+<!--            <label id="lbExpDate" style="color: #fc9494" th:if="${#fields.hasErrors('expDate')}"-->
+<!--                   th:errors="*{expDate}"></label>-->
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Thời gian thuê </label>
+            <select name="time">
+                <option th:text="3 tháng" th:value="3"></option>
+                <option th:text="6 tháng" th:value="6"></option>
+                <option th:text="12 tháng" th:value="12"></option>
+            </select>
+        </div>
+        <div class="mb-3 text-center">
+            <button type="submit" class="btn btn-success">Create</button>
+            <a href="/agreement" class="btn btn-dark">Back</a>
+        </div>
+    </form>
+</div>
+</body>
+</html>

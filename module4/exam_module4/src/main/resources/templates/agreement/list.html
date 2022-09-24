@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="webjars/bootstrap/4.6.0/css/bootstrap.min.css">
+    <script type="text/javascript" src="/webjars/jquery/3.6.1/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="webjars/bootstrap/4.6.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="webjars/popper.js/2.5.4/umd/popper.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1 class="text-center text-primary my-3">Hostel Management</h1>
+    </div>
+    <div class="row mb-3 mt-3">
+        <div class="col-lg-2">
+            <a href="@{/product/create}" class="btn btn-success add">
+                Add New Agreement
+            </a>
+        </div>
+    </div>
+    <div class="content" th:if="${agreements.size() > 0}">
+        <table class="table" id='table-agreement'>
+            <thead>
+            <tr class="bg-info">
+                <th scope="col">Mã hợp đồng</th>
+                <th scope="col">Mã phòng</th>
+                <th scope="col">Tên người thuê</th>
+                <th scope="col">Ngày làm hợp đồng</th>
+                <th scope="col">Thời gian thuê</th>
+                <th scope="col">Tổng tiền</th>
+                <th scope="col">Action</th>
+            </tr>
+            </thead>
+            <tbody id='table-body'>
+            <tr th:each="agreement: ${agreements}">
+                <td th:text="${agreement.id}"></td>
+                <td th:text="${agreement.hostel.id}"></td>
+                <td th:text="${agreement.personName}"></td>
+                <td th:text="${agreement.date}"></td>
+                <td th:text="${agreement.time} + ' thang'"></td>
+                <td th:each="hostel : ${allHostel}" th:if="${hostel.id == agreement.hostel.id}"
+                    th:text="${agreement.time * hostel.price}">
+                </td>
+                <td>
+                    <button type="button" class="btn btn-primary delete" data-toggle="modal" data-target="#deleteModal"
+                            th:data-id="${agreement.id}" th:data-hostel-id="${agreement.hostel.id}">
+                        Delete
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div th:unless="${agreements.size() > 0}">
+        <p style="color: red">Agreement List Empty</p>
+    </div>
+
+    <!--        Modal Delete-->
+<!--    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">-->
+<!--        <div class="modal-dialog">-->
+<!--            &lt;!&ndash;            <form action="/product/delete">&ndash;&gt;-->
+<!--            <div class="modal-content">-->
+<!--                <div class="modal-header">-->
+<!--                    <h5 class="modal-title" id="exampleModalLabel">Delete</h5>-->
+<!--                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
+<!--                        <span aria-hidden="true">&times;</span>-->
+<!--                    </button>-->
+<!--                </div>-->
+<!--                <div class="modal-body">-->
+<!--                    Are you sure delete this product ?-->
+<!--                </div>-->
+<!--                <div class="modal-footer">-->
+<!--                    <input type="hidden" name="id" id="deleteVal">-->
+<!--                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
+<!--                    <button type="button" class="btn btn-primary" onclick="remove()">Delete</button>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            &lt;!&ndash;            </form>&ndash;&gt;-->
+<!--        </div>-->
+<!--    </div>-->
+</div>
+</body>
+</html>
