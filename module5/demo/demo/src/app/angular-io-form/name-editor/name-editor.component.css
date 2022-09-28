@@ -1,0 +1,8 @@
+label {
+  font-weight: bold;
+  display: block;
+  padding: 5px;
+}
+#name {
+  display: inline-block;
+}

@@ -1,0 +1,49 @@
+<table class="table table-striped table-inverse table-responsive">
+  <thead class="thead-inverse">
+  <tr>
+    <th>#</th>
+    <th>Data Input</th>
+    <th>Pipe</th>
+    <th>Data Output</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td>1</td>
+    <td>{{dataNumber}}</td>
+    <td>Number</td>
+    <td>{{dataNumber | number: '1.2-2' }}</td>
+  </tr>
+  <tr>
+    <td>2</td>
+    <td>{{dataStr}}</td>
+    <td>Upper Case</td>
+    <td>{{dataStr | uppercase }}</td>
+  </tr>
+  <tr>
+    <td>3</td>
+    <td>{{dataStr}}</td>
+    <td>Lower Case</td>
+    <td>{{dataStr | lowercase }}</td>
+  </tr>
+  <tr>
+    <td>4</td>
+    <td>{{dataStr}}</td>
+    <td>Tittle Case</td>
+    <td>{{dataStr | titlecase }}</td>
+  </tr>
+  <tr>
+    <td>5</td>
+    <td>{{dataDate}}</td>
+    <td>Date</td>
+    <td>{{dataDate | date:'dd/MM/yyyy' }}</td>
+  </tr>
+  <tr>
+    <td>6</td>
+    <td>{{dataCur}}</td>
+    <td>Currency</td>
+    <td>{{dataCur | currency:'USD' : true : '1.3-3' }}</td>
+  </tr>
+  </tbody>
+</table>
+<app-angular-form></app-angular-form>

@@ -1,0 +1,36 @@
+<form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+  <label for="firstName">FirstName</label>
+  <input type="text" id="firstName" formControlName="firstName">
+  <div *ngIf="(firstName.dirty || firstName.touched) &&  firstName.invalid" class="alert alert-danger">
+    <div style="color: red" *ngIf="firstName.errors.required" >First Name is Required</div>
+    <div style="color: red" *ngIf="firstName.errors.minlength">First Name length min is 4</div>
+  </div>
+  <label for="lastName">Last Name</label>
+  <input type="text" id="lastName" formControlName="lastName">
+  <div formGroupName="address">
+    <h2>Address</h2>
+    <label for="street">Street</label>
+    <input type="text" id="street" formControlName="street">
+    <label for="city">City</label>
+    <input type="text" id="city" formControlName="city">
+    <label for="state">State</label>
+    <input type="text" id="state" formControlName="state">
+    <label for="zip">Zip</label>
+    <input type="text" id="zip" formControlName="zip">
+  </div>
+  <div formArrayName="aliases">
+    <h2>Aliases</h2>
+    <button type="button" (click)="addAlias()">+ Add another alias</button>
+    <div *ngFor="let alias of aliases.controls; let i=index">
+      <!-- The repeated alias template -->
+      <label for="alias-{{ i }}">Alias:</label>
+      <input id="alias-{{ i }}" type="text" [formControlName]="i">
+    </div>
+  </div>
+  <p>Complete the form to enable button</p>
+  <button type="submit"[disabled]="!profileForm.valid">Submit</button>
+</form>
+<hr>
+<p>Form Value: {{profileForm.value | json}}</p>
+<p>Form Status: {{ profileForm.status }}</p>
+<button type="button" (click)="updateProfile()">Update Profile</button>

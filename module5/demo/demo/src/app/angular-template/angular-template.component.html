@@ -1,0 +1,32 @@
+<table class="table">
+  <thead>
+  <tr class="header-table">
+    <th>No</th>
+    <th>Name</th>
+    <th>Gender</th>
+    <th>Point</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let student of students; let i = index; trackBy: trackById">
+    <td>{{i + 1}}</td>
+    <td [ngClass]="student.gender == 2 ? 'txt-color txt-font-weight' : ''">{{student.name}}</td>
+    <td [ngSwitch]="student.gender">
+      <span *ngSwitchCase="0">Female</span>
+      <span *ngSwitchCase="1">Male</span>
+<!--      <span *ngSwitchDefault appHighLight>LGBT</span>-->
+      <span *ngSwitchDefault appHighLight>LGBT</span>
+    </td>
+    <td [ngStyle]="{
+        'color': student.point < 75 ? 'red' : '',
+        'font-weight': 'bold'}">
+      <span *ngIf="student.point >= 75; else elseBlock">Pass</span>
+    </td>
+    <ng-template #elseBlock>
+      <span>Fail</span>
+    </ng-template>
+  </tr>
+  </tbody>
+</table>
+<input type="button" (click)="insert()" value="Insert">
+<app-angular-pipes></app-angular-pipes>
