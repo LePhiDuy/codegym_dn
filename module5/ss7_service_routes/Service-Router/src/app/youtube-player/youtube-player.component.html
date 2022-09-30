@@ -1,0 +1,7 @@
+<div *ngIf="song; else elseIf">
+<h1>Song name: {{song.name}}</h1>
+<iframe width="560" height="315" [src]="getSrc()" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+</div>
+<ng-template #elseIf>
+  No data
+</ng-template>

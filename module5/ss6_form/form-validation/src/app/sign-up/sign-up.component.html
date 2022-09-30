@@ -33,6 +33,9 @@
       <div *ngIf="confirmPassword.errors.minlength">
         Password length is 6
       </div>
+      <div *ngIf="confirmPassword.errors.confirmedValidator">
+        Confirm Password is different with Password
+      </div>
     </div>
   </div>
   <div class="form-group">

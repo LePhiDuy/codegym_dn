@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators} from "@angular/forms";
+import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-sign-up',
@@ -21,7 +21,7 @@ export class SignUpComponent implements OnInit {
       age: ['', [Validators.required, Validators.min(18)]],
       gender: ['', [Validators.required]],
       phone: ['', [Validators.required, Validators.pattern('^\\+84\\d{9,10}$')]]
-    }, {validators: this.passwordConfirm('password', 'confirmPassword')});
+    }, {validators: this.ConfirmedValidator('password', 'confirmPassword')});
   }
 
   get email() {
@@ -52,19 +52,41 @@ export class SignUpComponent implements OnInit {
     return this.signUpForm.get('phone');
   }
 
-  const
-  passwordConfirm = (password: string, confirmPassword: string) => {
-    return function (formGroup: FormGroup): ValidationErrors | null {
-      const {value: password} = formGroup.get('password') as AbstractControl;
-      const {value: confirmPassword} = formGroup.get('confirmPassword') as AbstractControl;
-      return password === confirmPassword
-        ? null
-        : {
-          valueNotMatch: {
-            password,
-            confirmPassword,
-          },
-        };
+
+  // passwordConfirm = (password: string, confirmPassword: string) => {
+  //   return (formGroup: FormGroup): ValidationErrors | null => {
+  //     // tslint:disable-next-line:no-shadowed-variable
+  //     const {value: password} = formGroup.get('password') as AbstractControl;
+  //     // tslint:disable-next-line:no-shadowed-variable
+  //     const {value: confirmPassword} = formGroup.get('confirmPassword') as AbstractControl;
+  //     return password === confirmPassword
+  //       ? null
+  //       : {
+  //         valueNotMatch: {
+  //           password,
+  //           confirmPassword,
+  //         },
+  //       };
+  //   };
+  // }
+
+
+  ConfirmedValidator(controlName: string, matchingControlName: string) {
+    return (formGroup: FormGroup) => {
+      const control = formGroup.controls[controlName];
+      const matchingControl = formGroup.controls[matchingControlName];
+
+      if (matchingControl.errors && !matchingControl.errors.confirmedValidator) {
+        return;
+      }
+
+      if (control.value !== matchingControl.value) {
+        matchingControl.setErrors({ confirmedValidator: true });
+      } else {
+        matchingControl.setErrors(null);
+      }
     };
   }
 }
+
+

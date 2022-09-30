@@ -1,0 +1,25 @@
+<div>
+  <h1><strong>Services </strong>Demo</h1>
+
+  <button type="button" (click)="getAllProducts()">Get Products</button>
+
+  <div>
+    <table>
+      <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Price</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let product of products;">
+        <td>{{product.productID | number : '2.3-3'}}</td>
+        <td>{{product.name}}</td>
+        <td>{{product.price | currency : 'VND' : 'VND' : '1.2-2'}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
