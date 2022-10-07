@@ -1,19 +1,87 @@
-<a class="btn btn-primary" routerLink="/product/list">Quay lai danh sach</a>
-<form [formGroup]="formEdit" (ngSubmit)="onSubmit()">
+<h2>Edit Product</h2>
+<form [formGroup]="formEdit" (ngSubmit)="onSubmit(id)">
   <div class="form-group">
     <input type="hidden" class="form-control" formControlName="id">
   </div>
   <div class="form-group">
-    <label>Name</label>
+    <label>Tên sản phẩm: </label>
     <input type="text" class="form-control" formControlName="name">
+    <div *ngIf="name.invalid && (name.touched || name.dirty)" class="alert alert-danger">
+      <div *ngIf="name.errors?.required">
+        Tên không được để trống
+      </div>
+    </div>
   </div>
   <div class="form-group">
-    <label>Price</label>
+    <label>Category: </label>
+    <select formControlName="category" [compareWith]="compareObjects">
+      <option *ngFor="let category of categories" [ngValue]="category">{{category.name}}</option>
+    </select>
+    <div *ngIf="category.invalid && (category.touched || category.dirty)" class="alert alert-danger">
+      <div *ngIf="category.errors?.required">
+        Loại sản phẩm không được để trống
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label>Giá: </label>
     <input type="number" class="form-control" formControlName="price">
+    <div *ngIf="price.invalid && (price.touched || price.dirty)" class="alert alert-danger">
+      <div *ngIf="price.errors?.required">
+        Giá tiền không được để trống
+      </div>
+      <div *ngIf="price.errors?.min">
+        Giá tiền nhỏ nhất là 150000
+      </div>
+    </div>
   </div>
   <div class="form-group">
-    <label>Description</label>
+    <label>Chi tiết sản phẩm: </label>
     <input type="text" class="form-control" formControlName="description">
+    <div *ngIf="description.invalid && (description.touched || description.dirty)" class="alert alert-danger">
+      <div *ngIf="description.errors?.required">
+        Chi tiết sản phẩm không được để trống
+      </div>
+      <div *ngIf="description.errors?.minlength">
+        Chi tiết sản phẩm phải có ít nhất 10 ký tự
+      </div>
+    </div>
   </div>
-  <button type="submit" class="btn btn-success mt-3 text-center">Submit</button>
+  <div class="form-group">
+    <label>Ngày nhập hàng</label>
+    <input type="date" class="form-control" formControlName="dateImport">
+    <div *ngIf="dateImport.invalid && (dateImport.touched || dateImport.dirty)" class="alert alert-danger">
+      <div *ngIf="dateImport.errors?.required">
+        Ngày nhập hàng không được để trống
+      </div>
+      <div *ngIf="dateImport.errors?.dateValidator">
+        Ngày nhập hàng phải sau ngày sản xuất
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label>Ngày sản xuất</label>
+    <input type="date" class="form-control" formControlName="dateProduce">
+    <div *ngIf="dateProduce.invalid && (dateProduce.touched || dateProduce.dirty)" class="alert alert-danger">
+      <div *ngIf="dateProduce.errors?.required">
+        Ngày sản xuất không được để trống
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label>Ngày hết hạn</label>
+    <input type="date" class="form-control" formControlName="dateEnd">
+    <div
+      *ngIf="dateEnd.invalid && (dateEnd.touched || dateEnd.dirty)"
+      class="alert alert-danger">
+      <div *ngIf="dateEnd.errors.required">
+        Ngày hết hạn không được để trống
+      </div>
+      <div *ngIf="dateEnd.errors.dateValidator">
+        Ngày hết hạn phải sau ngày sản xuất
+      </div>
+    </div>
+  </div>
+  <button type="submit" class="btn btn-success mt-3 text-center" [disabled]="formEdit.invalid">Lưu</button>
+  <a class="btn btn-primary mt-3 text-center" routerLink="/product/list" id="back">Thoát</a>
 </form>

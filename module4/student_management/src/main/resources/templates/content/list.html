@@ -9,72 +9,60 @@
     <script type="text/javascript" src="webjars/popper.js/2.5.4/umd/popper.min.js"></script>
     <script type="text/javascript" src="webjars/izitoast/1.4.0/dist/js/iziToast.min.js"></script>
     <link rel="stylesheet" href="webjars/izitoast/1.4.0/dist/css/iziToast.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous"></script>
+    <!--    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">-->
+    <!--    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>-->
+    <!--    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>-->
+    <!--    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous"></script>-->
 </head>
 <body>
 <div class="container">
     <div class="header">
-        <h1 class="text-center text-primary my-3">Student Management</h1>
+        <h1 class="text-center text-primary my-3">Question Management</h1>
     </div>
     <div class="row mb-3 mt-3">
-        <div class="col-lg-3">
-            <a th:href="@{/student/create}" class="btn btn-primary">
-                Add new student
+        <div class="col-lg-6">
+            <a th:href="@{/question/create}" class="btn btn-primary">
+                Add new question
             </a>
         </div>
+        <div class="col-lg-6">
+            <form class="form-inline formSearch" th:action="@{/question}">
+                <input class="form-control ml-2" type="search" placeholder="Enter a tittle to search"
+                       aria-label="Search" name="tittle" id="tittleSearch">
+                <select class="form-control" id="typeQuestion" name="typeQuestion">
+                    <option value="">Choose a QuestionType</option>
+                    <option th:each="item : ${questionType}" th:text="${item.name}" th:value="${item.id}"></option>
+                </select>
+                <button class="btn btn-outline-success my-2 my-sm-0 ml-2" type="submit">Search</button>
+            </form>
+        </div>
     </div>
-    <div class="content" th:if="${students.getTotalPages() > 0}">
-        <table class="table" id='table-agreement'>
+    <div class="content" th:if="${questionContents.getTotalPages() > 0}">
+        <table class="table" id='table-question'>
             <thead>
             <tr class="bg-info">
                 <th scope="col">No</th>
-                <th scope="col">Name</th>
-                <th scope="col">Email</th>
-                <th scope="col">Gender</th>
-                <th scope="col">Phone</th>
-                <th scope="col">Birthdate</th>
-                <th scope="col">Class</th>
+                <th scope="col">Tittle</th>
+                <th scope="col">Question Type</th>
+                <th scope="col">Date Create</th>
+                <th scope="col">Status</th>
                 <th scope="col">Action</th>
             </tr>
             </thead>
             <tbody id='table-body'>
-            <tr th:each="student, state: ${students}">
-                <td th:text="${state.count + students.getSize() * students.getNumber()}"></td>
-                <td th:text="${student.name}"></td>
-                <td th:text="${student.email}"></td>
+            <tr th:each="question, state: ${questionContents}">
+                <td th:text="${state.count + questionContents.getSize() * questionContents.getNumber()}"></td>
+                <td th:text="${question.tittle}"></td>
+                <td th:text="${question.questionType.name}"></td>
+                <td th:text="${question.dateCreate}"></td>
                 <td>
-                    <span th:if="${student.gender}" th:text="Male"></span>
-                    <span th:unless="${student.gender}" th:text="Female"></span>
+                    <span th:if="${question.status}" th:text="${question.status}"></span>
+                    <span th:unless="${question.status}" th:text="${question.status}"></span>
                 </td>
-                <td th:text="${student.phone}"></td>
-                <td th:text="${student.birthDate}"></td>
-                <td th:text="${student.classStudent.name}"></td>
                 <td>
-<!--                    <a href="#editModal" class="btn btn-success edit" data-toggle="modal"-->
-<!--                       th:data-id="${agreement.id}" th:data-hostel-id="${agreement.hostel.id}"-->
-<!--                       th:data-personName="${agreement.personName}" th:data-date=${agreement.date}"-->
-<!--                       th:data-time="${agreement.time}">-->
-<!--                        Edit-->
-<!--                    </a>-->
-<!--                    <a th:href="@{/student/edit/{id}(id=${student.id})}" class="btn btn-success">Edit</a>-->
-<!--                    <button type="button" class="btn btn-primary delete" data-toggle="modal" data-target="#deleteModal"-->
-<!--                            th:data-id="${student.id}" th:data-name="${student.name}" th:data-class-name="${student.classStudent.name}">-->
-<!--                        Delete-->
-<!--                    </button>-->
-                    <a href="#editModal" class="btn btn-success edit" data-toggle="modal"
-                       th:data-id="${student.id}"
-                       th:data-name="${student.name}"
-                       th:data-gender="${student.gender}"
-                       th:data-email="${student.email}"
-                       th:data-birthDate="${student.birthDate}"
-                       th:data-class-name="${student.class.name}">
-                        Edit
-                    </a>
+                    <a th:href="@{/question/edit/{id}(id=${question.id})}" class="btn btn-success">Edit</a>
                     <button type="button" class="btn btn-primary delete" data-toggle="modal" data-target="#deleteModal"
-                            th:data-id="${student.id}" th:data-name="${student.name}" th:data-class-name="${student.classStudent.name}">
+                            th:data-id="${question.id}">
                         Delete
                     </button>
                 </td>
@@ -82,86 +70,34 @@
             </tbody>
         </table>
     </div>
-    <div th:unless="${students.getTotalPages() > 0}">
-        <p style="color: red">Student List Empty</p>
+    <div th:unless="${questionContents.getTotalPages() > 0}">
+        <p style="color: red">Question List Empty</p>
     </div>
     <div>
-        <a th:if="${students.hasPrevious()}" th:href="@{'/student'(page = ${students.number - 1})}">Previous</a>
-        <span th:text="${students.number + 1}"></span>/<span th:text="${students.getTotalPages()}"></span>
-        <a th:if="${students.hasNext()}" th:href="@{'/student'(page = ${students.number + 1})}">Next</a>
+        <a th:if="${questionContents.hasPrevious()}" th:href="@{'/question'(page = ${questionContents.number - 1})}">Previous</a>
+        <span th:text="${questionContents.number + 1}"></span>/<span
+            th:text="${questionContents.getTotalPages()}"></span>
+        <a th:if="${questionContents.hasNext()}"
+           th:href="@{'/question'(page = ${questionContents.number + 1})}">Next</a>
     </div>
     <!--            Modal Delete-->
     <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
-            <form action="/student/delete">
+            <form action="/question/delete">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Bạn có muốn xóa học sinh này không ?</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Delete</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        <p class="name"></p>
-                        <p class="class_name"></p>
+                        Bạn có muốn xóa câu hỏi này không ?
                     </div>
                     <div class="modal-footer">
                         <input type="hidden" name="id" id="deleteVal">
                         <button type="button" class="btn btn-secondary close-modal" data-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-primary">Delete</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
-    <div class="modal fade" id="editModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog">
-            <form action="" method="post" th:object="${studentDto}">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Edit Student</h5>
-                        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="mb-3">
-                            <input type="hidden" name="id" th:field="*{id}">
-                            <label class="form-label">Name</label>
-                            <input class="form-control" name="id" th:field="*{name}"/>
-                            <label id="lbId" style="color: #fc9494" th:if="${#fields.hasErrors('name')}"
-                                   th:errors="*{name}"></label>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Email</label>
-                            <input type="email" name="email" th:field="*{email}"/>
-                            <label id="lbEmail" style="color: #fc9494" th:if="${#fields.hasErrors('email')}"
-                                   th:errors="*{email}"></label>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Gender</label>
-                            <input type="radio" name="gender" th:field="*{gender}" th:value="${1}">Male
-                            <input type="radio" name="gender" th:field="*{gender}" th:value="${0}">Female
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Phone</label>
-                            <input class="form-control" name="phone" th:field="*{phone}"/>
-                            <label id="lbPhone" style="color: #fc9494" th:if="${#fields.hasErrors('phone')}"
-                                   th:errors="*{phone}"></label>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Birth Date</label>
-                            <input type="date" class="date form-control" name="birthDate" th:field="*{birthDate}"/>
-                            <label id="lblDate" style="color: #fc9494" th:if="${#fields.hasErrors('birthDate')}" th:error="*{birthDate}"></label>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Class</label>
-                            <select name="classStudent" th:field="*{classStudent}">
-                                <option th:each="item : ${classStudents}" th:text="${item.name}" th:value="${item.id}"></option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="close">Cancel</button>
-                        <button type="submit" class="btn btn-success">Save</button>
                     </div>
                 </div>
             </form>
@@ -175,9 +111,6 @@
         $(".delete").click(function () {
             let val = $(this).data("id");
             $("#deleteVal").val(val);
-            alert(val);
-            $('.name').text('Name: ' + $(this).data("name"));
-            $('.class_name').text('Class: ' + $(this).data("class-name"));
         })
     })
 </script>

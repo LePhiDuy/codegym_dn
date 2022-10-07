@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.sql.Date;
 import java.time.LocalDate;
 
 @Entity
@@ -13,16 +14,16 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Getter
 @Setter
-public class Student {
+public class QuestionContent {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
-    private String email;
-    private boolean gender;
-    private String phone;
-    private LocalDate birthDate;
+    private String tittle;
+    private String content;
+    private String answer;
+    private boolean status;
+    private LocalDate dateCreate;
     @ManyToOne
-    @JoinColumn(name = "class_id")
-    private ClassStudent classStudent;
+    @JoinColumn(name = "question_type_id")
+    private QuestionType questionType;
 }

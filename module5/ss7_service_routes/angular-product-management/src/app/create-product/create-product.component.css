@@ -1,0 +1,10 @@
+h2 {
+  text-align: center;
+}
+#back {
+  margin-left: 3px;
+}
+input {
+  display: block;
+  left: 50%;
+}

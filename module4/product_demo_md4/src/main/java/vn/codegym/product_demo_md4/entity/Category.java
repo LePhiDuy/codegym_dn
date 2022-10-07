@@ -1,5 +1,7 @@
 package vn.codegym.product_demo_md4.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,5 +21,6 @@ public class Category {
     private Long id;
     private String name;
     @OneToMany(mappedBy = "category")
+    @JsonBackReference
     private Set<Product> products;
 }

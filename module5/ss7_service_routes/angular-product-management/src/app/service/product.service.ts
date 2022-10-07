@@ -1,68 +1,37 @@
 import { Injectable } from '@angular/core';
 import {Product} from '../model/product';
+import {Observable} from 'rxjs';
+import {HttpClient} from '@angular/common/http';
+import {environment} from '../../environments/environment';
+
+const apiUrl = environment.api_url;
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
-  products: Product[] = [{
-    id: 1,
-    name: 'IPhone 12',
-    price: 2400000,
-    description: 'New'
-  }, {
-    id: 2,
-    name: 'IPhone 11',
-    price: 1560000,
-    description: 'Like new'
-  }, {
-    id: 3,
-    name: 'IPhone X',
-    price: 968000,
-    description: '97%'
-  }, {
-    id: 4,
-    name: 'IPhone 8',
-    price: 7540000,
-    description: '98%'
-  }, {
-    id: 5,
-    name: 'IPhone 11 Pro',
-    price: 1895000,
-    description: 'Like new'
-  }];
-  constructor() { }
-  getAll() {
-    return this.products;
+  constructor(private http: HttpClient) { }
+  getAll(): Observable<Product[]> {
+    return this.http.get<Product[]>(apiUrl + '/products');
   }
-  saveProduct(product) {
-    const index = this.findIndex(product);
-    if (this.findIndex(product) !== -1) {
-      this.products[index] = product;
-    } else {
-      this.products.push(product);
-    }
+  // @ts-ignore
+  saveProduct(product): Observable<Product> {
+    return this.http.post<Product>(apiUrl + '/products', product);
   }
-  findById(id: number) {
-    return this.products.find(product => product.id === id);
+  findById(id: number): Observable<Product> {
+    return this.http.get<Product>( `${apiUrl}/products/${id}`);
   }
-  findIndex(product) {
-    for (let i = 0; i < this.products.length; i++) {
-      if (this.products[i].id === product.id) {
-        return i;
-      }
-    }
-    return -1;
+  // @ts-ignore
+  delete(id: number): Observable<Product> {
+    return this.http.delete<Product>(`${apiUrl}/products/${id}`);
   }
-  delete(id: number) {
-    for (let i = 0; i < this.products.length; i++) {
-      if (id === this.products[i].id) {
-        for (let j: number = i; j < this.products.length; j++) {
-          this.products[i] = this.products[i + 1];
-        }
-        this.products.length--;
-        break;
-      }
-    }
+  // @ts-ignore
+  update(id: number, product: Product): Observable<Product> {
+    return this.http.put<Product>(`${apiUrl}/products/${id}`, product);
+  }
+  search(name: string, dateEnd: Date, dateImportBegin: Date, dateImportEnd: Date): Observable<Product[]> {
+    return this.http.get<Product[]>
+    (`${apiUrl}/products?name_like=${name}&dateEnd_lte=${dateEnd}
+    &dateImport_gte=${dateImportBegin}&dateImport_lte=${dateImportEnd}`);
   }
 }

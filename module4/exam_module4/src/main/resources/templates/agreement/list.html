@@ -7,6 +7,8 @@
     <script type="text/javascript" src="/webjars/jquery/3.6.1/dist/jquery.min.js"></script>
     <script type="text/javascript" src="webjars/bootstrap/4.6.0/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="webjars/popper.js/2.5.4/umd/popper.min.js"></script>
+    <script type="text/javascript" src="webjars/izitoast/1.4.0/dist/js/iziToast.min.js"></script>
+    <link rel="stylesheet" href="webjars/izitoast/1.4.0/dist/css/iziToast.min.css">
 </head>
 <body>
 <div class="container">
@@ -14,9 +16,9 @@
         <h1 class="text-center text-primary my-3">Hostel Management</h1>
     </div>
     <div class="row mb-3 mt-3">
-        <div class="col-lg-2">
-            <a href="@{/product/create}" class="btn btn-success add">
-                Add New Agreement
+        <div class="col-lg-3">
+            <a th:href="@{/agreement/create}" class="btn btn-primary">
+                Add new agreement
             </a>
         </div>
     </div>
@@ -44,10 +46,17 @@
                     th:text="${agreement.time * hostel.price}">
                 </td>
                 <td>
+                    <!--                    <a href="#editModal" class="btn btn-success edit" data-toggle="modal"-->
+                    <!--                       th:data-id="${agreement.id}" th:data-hostel-id="${agreement.hostel.id}"-->
+                    <!--                       th:data-personName="${agreement.personName}" th:data-date=${agreement.date}"-->
+                    <!--                       th:data-time="${agreement.time}">-->
+                    <!--                        Edit-->
+                    <!--                    </a>-->
                     <button type="button" class="btn btn-primary delete" data-toggle="modal" data-target="#deleteModal"
                             th:data-id="${agreement.id}" th:data-hostel-id="${agreement.hostel.id}">
                         Delete
                     </button>
+                    <a th:href="@{/agreement/edit/{id}(id=${agreement.id})}" class="btn btn-success">Edit</a>
                 </td>
             </tr>
             </tbody>
@@ -58,29 +67,45 @@
         <p style="color: red">Agreement List Empty</p>
     </div>
 
-    <!--        Modal Delete-->
-<!--    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">-->
-<!--        <div class="modal-dialog">-->
-<!--            &lt;!&ndash;            <form action="/product/delete">&ndash;&gt;-->
-<!--            <div class="modal-content">-->
-<!--                <div class="modal-header">-->
-<!--                    <h5 class="modal-title" id="exampleModalLabel">Delete</h5>-->
-<!--                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
-<!--                        <span aria-hidden="true">&times;</span>-->
-<!--                    </button>-->
-<!--                </div>-->
-<!--                <div class="modal-body">-->
-<!--                    Are you sure delete this product ?-->
-<!--                </div>-->
-<!--                <div class="modal-footer">-->
-<!--                    <input type="hidden" name="id" id="deleteVal">-->
-<!--                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
-<!--                    <button type="button" class="btn btn-primary" onclick="remove()">Delete</button>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--            &lt;!&ndash;            </form>&ndash;&gt;-->
-<!--        </div>-->
-<!--    </div>-->
+    <!--            Modal Delete-->
+    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <form action="/agreement/delete">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Bạn có muốn xóa hợp đồng này không ?</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p class="agreement_id"></p>
+                        <p class="hostel_id"></p>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="hidden" name="id" id="deleteVal">
+                        <button type="button" class="btn btn-secondary close-modal" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Delete</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 </body>
 </html>
+<script>
+    $(document).ready(function () {
+        $(".delete").click(function () {
+            let val = $(this).data("id");
+            $("#deleteVal").val(val);
+            $('.agreement_id').text('Mã hợp đồng: ' + val);
+            $('.hostel_id').text('Mã nhà trọ: ' + $(this).data("hostel-id"));
+        })
+    })
+</script>
+<script th:inline="javascript">
+    if ([[${msg}]]) {
+        iziToast.success({position: "topRight", message: [[${msg}]]});
+    }
+</script>

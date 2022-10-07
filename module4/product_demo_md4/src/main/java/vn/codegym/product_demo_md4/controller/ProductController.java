@@ -2,10 +2,13 @@ package vn.codegym.product_demo_md4.controller;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -28,11 +31,14 @@ public class ProductController {
     private ICategoryService categoryService;
 
     @GetMapping("")
-    public String find(@PageableDefault(value = 3) Pageable pageable, Model model, ProductDto productDto, BindingResult bindingResult, @RequestParam(defaultValue = "") String searchBy, @RequestParam(defaultValue = "") String q) {
+    public String find(@PageableDefault(value = 3) Pageable pageable, Model model, ProductDto productDto,
+                       BindingResult bindingResult, @RequestParam(defaultValue = "") String searchBy, @RequestParam(defaultValue = "") String q) {
         model.addAttribute("products", productService.find(searchBy, q, pageable));
         model.addAttribute("searchBy", searchBy);
         model.addAttribute("q", q);
         model.addAttribute("sort", pageable.getSort());
+        model.addAttribute("size", pageable.getPageSize());
+        System.out.println(pageable.getPageSize());
         model.addAttribute("productDto", productDto);
         model.addAttribute("isError", bindingResult.hasErrors());
         return "product/list";
@@ -43,7 +49,7 @@ public class ProductController {
         return (List<Category>) categoryService.findAll();
     }
 
-    @PostMapping("")
+    @PostMapping(" ")
     public String create(@Validated ProductDto productDto, BindingResult bindingResult, @PageableDefault(value = 3) Pageable pageable, Model model) {
         if (bindingResult.hasErrors()) {
             return find(pageable, model, productDto, bindingResult, "", "");
@@ -55,8 +61,20 @@ public class ProductController {
     }
 
     @GetMapping("/product/delete")
-    public String delete(@RequestParam Long id) {
+    public ResponseEntity<Page<Product>> delete(@RequestParam Long id, @PageableDefault(value = 3) Pageable pageable) {
         productService.delete(id);
-        return "redirect:/";
+        Page<Product> products = productService.findAll(pageable);
+        for (Product product : products
+        ) {
+            System.out.println(product.getName());
+        }
+        return new ResponseEntity<>(products, HttpStatus.OK);
     }
+
+
+//    @GetMapping("/product/delete")
+//    public String delete(@RequestParam Long id) {
+//        productService.delete(id);
+//        return "redirect:/";
+//    }
 }

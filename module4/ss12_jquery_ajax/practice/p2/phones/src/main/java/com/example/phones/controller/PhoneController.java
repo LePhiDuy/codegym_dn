@@ -8,6 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.Optional;
+
 @RestController
 @RequestMapping("/smartPhones")
 public class PhoneController {
@@ -26,5 +28,14 @@ public class PhoneController {
     @GetMapping
     public ResponseEntity<Iterable<Phone>> allPhones() {
         return new ResponseEntity<>(phoneService.findAll(), HttpStatus.OK);
+    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Phone> delete(@PathVariable Long id) {
+        Optional<Phone> phone = phoneService.findById(id);
+        if (!phone.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        phoneService.delete(id);
+        return new ResponseEntity<>(phone.get(), HttpStatus.NO_CONTENT);
     }
 }

@@ -1,0 +1,105 @@
+{
+  "categories": [
+    {
+      "id": 1,
+      "name": "Phone"
+    },
+    {
+      "id": 2,
+      "name": "TV"
+    }
+  ],
+  "products": [
+    {
+      "id": 6,
+      "name": "Watch Galaxy",
+      "price": 150000,
+      "dateImport": "2020-05-26",
+      "dateProduce": "2020-05-10",
+      "dateEnd": "2021-05-10",
+      "category": {
+        "id": 2,
+        "name": "TV"
+      },
+      "description": "12Gb"
+    },
+    {
+      "id": 1,
+      "name": "TV",
+      "price": 1500000,
+      "dateImport": "2021-05-26",
+      "dateProduce": "2021-05-10",
+      "dateEnd": "2022-05-10",
+      "category": {
+        "id": 2,
+        "name": "TV"
+      },
+      "description": "64 Inch"
+    },
+    {
+      "id": 2,
+      "name": "Iphone X",
+      "price": 5000000,
+      "dateImport": "2020-03-15",
+      "dateProduce": "2020-02-10",
+      "dateEnd": "2022-05-19",
+      "category": {
+        "id": 1,
+        "name": "Phone"
+      },
+      "description": "256Gb"
+    },
+    {
+      "id": 3,
+      "name": "Samsung 12",
+      "price": 10000,
+      "dateImport": "2019-05-26",
+      "dateProduce": "2018-05-10",
+      "dateEnd": "2021-05-10",
+      "category": {
+        "id": 1,
+        "name": "Phone"
+      },
+      "description": "128Gb"
+    },
+    {
+      "id": 7,
+      "name": "a",
+      "price": 12,
+      "category": {
+        "id": 1,
+        "name": "Phone"
+      },
+      "description": "11111111111111111111",
+      "dateImport": "2022-10-14",
+      "dateProduce": "2022-10-05",
+      "dateEnd": "2022-10-25"
+    },
+    {
+      "id": 8,
+      "name": "11",
+      "price": 111111,
+      "category": {
+        "id": 1,
+        "name": "Phone"
+      },
+      "description": "1111111111111111",
+      "dateImport": "2022-10-14",
+      "dateProduce": "2022-10-14",
+      "dateEnd": "2022-10-14"
+    },
+    {
+      "id": 9,
+      "name": "Laptop",
+      "price": 1000000,
+      "category": {
+        "id": 1,
+        "name": "Phone"
+      },
+      "description": "128GB, Ram 16Gb",
+      "dateImport": "2021-10-21",
+      "dateProduce": "2021-10-12",
+      "dateEnd": "2021-10-23"
+    }
+  ]
+}

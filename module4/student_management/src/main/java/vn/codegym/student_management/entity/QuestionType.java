@@ -13,11 +13,11 @@ import java.util.Set;
 @AllArgsConstructor
 @Getter
 @Setter
-public class ClassStudent {
+public class QuestionType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    @OneToMany(mappedBy = "classStudent")
-    private Set<Student> students;
+    @OneToMany(mappedBy = "questionType")
+    private Set<QuestionContent> questionContents;
 }

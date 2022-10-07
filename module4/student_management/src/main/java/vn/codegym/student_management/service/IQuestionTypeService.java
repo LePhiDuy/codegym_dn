@@ -1,9 +1,9 @@
 package vn.codegym.student_management.service;
 
-import vn.codegym.student_management.entity.ClassStudent;
+import vn.codegym.student_management.entity.QuestionType;
 
 import java.util.List;
 
-public interface IClassService {
-    List<ClassStudent> findAll();
+public interface IQuestionTypeService {
+    List<QuestionType> findAll();
 }

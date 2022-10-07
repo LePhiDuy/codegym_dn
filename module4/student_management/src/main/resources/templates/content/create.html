@@ -10,46 +10,33 @@
 </head>
 <body>
 <div class="container">
-    <h2 class="text-center text-primary mt-3" th:text="${tittle}"></h2>
-    <form method="post" th:object="${studentDto}" th:action="@{/student/save}">
+    <h2 class="text-center text-primary mt-3">Add new Question</h2>
+    <form method="post" th:object="${questionContentDto}" th:action="@{/question/save}">
+        <input type="hidden" name="id" th:field="*{id}">
+        <input type="hidden" name="dateCreate" th:field="*{dateCreate}">
         <div class="mb-3">
-            <input type="hidden" name="id" th:field="*{id}">
-            <label class="form-label">Name</label>
-            <input class="form-control" name="id" th:field="*{name}"/>
-            <label id="lbId" style="color: #fc9494" th:if="${#fields.hasErrors('name')}"
-                   th:errors="*{name}"></label>
+            <label class="form-label">Tittle</label>
+            <input class="form-control" name="tittle" th:field="*{tittle}"/>
+            <label id="lbTittle" style="color: #fc9494" th:if="${#fields.hasErrors('tittle')}"
+                   th:errors="*{tittle}"></label>
         </div>
         <div class="mb-3">
-            <label class="form-label">Email</label>
-            <input type="email" name="email" th:field="*{email}"/>
-            <label id="lbEmail" style="color: #fc9494" th:if="${#fields.hasErrors('email')}"
-                   th:errors="*{email}"></label>
+            <label class="form-label">Content</label>
+            <textarea class="form-control" name="content" th:field="*{content}" rows="10" cols="100"></textarea>
+            <label id="lbContent" style="color: #fc9494" th:if="${#fields.hasErrors('content')}"
+                   th:errors="*{content}"></label>
         </div>
         <div class="mb-3">
-            <label class="form-label">Gender</label>
-            <input type="radio" name="gender" th:field="*{gender}" th:value="${1}">Male
-            <input type="radio" name="gender" th:field="*{gender}" th:value="${0}">Female
-        </div>
-        <div class="mb-3">
-            <label class="form-label">Phone</label>
-            <input class="form-control" name="phone" th:field="*{phone}"/>
-            <label id="lbPhone" style="color: #fc9494" th:if="${#fields.hasErrors('phone')}"
-                   th:errors="*{phone}"></label>
-        </div>
-        <div class="mb-3">
-            <label class="form-label">Birth Date</label>
-            <input type="date" class="date form-control" name="birthDate" th:field="*{birthDate}"/>
-            <label id="lblDate" style="color: #fc9494" th:if="${#fields.hasErrors('birthDate')}" th:error="*{birthDate}"></label>
-        </div>
-        <div class="mb-3">
-            <label class="form-label">Class</label>
-            <select name="classStudent" th:field="*{classStudent}">
-                <option th:each="item : ${classStudents}" th:text="${item.name}" th:value="${item.id}"></option>
+            <label class="form-label">Question Type</label>
+            <select name="questionType" th:field="*{questionType}">
+                <option th:each="item : ${questionTypes}" th:text="${item.name}" th:value="${item.id}"></option>
             </select>
+            <label id="lbType" style="color: #fc9494" th:if="${#fields.hasErrors('questionType')}"
+                   th:errors="*{questionType}"></label>
         </div>
         <div class="mb-3 text-center">
             <button type="submit" class="btn btn-success">Save</button>
-            <a href="/agreement" class="btn btn-dark">Back</a>
+            <a href="/question" class="btn btn-dark">Back</a>
         </div>
     </form>
 </div>

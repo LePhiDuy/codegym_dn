@@ -1,24 +1,95 @@
-<a class="btn btn-success" routerLink="/product/create">Thêm mới sản phẩm</a>
+<h1>Product Management</h1>
+<div id="formSearch">
+  <form [formGroup]="formSearch" (ngSubmit)="search()">
+    <div class="form-row">
+      <div class="col 6 d-inline-block">
+        <label>Ten san pham</label>
+        <input type="text" class="form-control" formControlName="nameProduct">
+      </div>
+      <div class="col 6 d-inline-block">
+        <label>Ngay het han</label>
+        <input type="date" class="form-control" formControlName="dateEnd">
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="col 6 d-inline-block">
+        <label>Ngay nhap hang</label>
+        <input type="date" class="form-control" formControlName="dateImportBegin">
+      </div>
+      <!--    <span>den</span>-->
+      <div class="col 6 d-inline-block">
+        <input type="date" class="form-control" formControlName="dateImportEnd">
+      </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Search</button>
+  </form>
+</div>
+
+<a class="btn btn-success" routerLink="/product/create" id="create">Thêm mới sản phẩm</a>
 <table class="table table-striped table-inverse table-responsive">
   <thead class="thead-inverse">
   <tr>
     <th>STT</th>
     <th>Tên</th>
+    <th>Loai</th>
     <th>Giá</th>
     <th>Mô tả</th>
-    <td>Action</td>
+    <th>Ngày nhập hàng</th>
+    <th>Ngày sản xuất</th>
+    <th>Ngày hết hạn</th>
+    <th>Action</th>
   </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let product of products; index as i">
-    <td>{{i + 1}}</td>
+  <tr *ngFor="let product of products  | paginate: { itemsPerPage: 2, currentPage: p } ; index as i">
+    <td>{{(i + 1) + (p - 1) * 2}}</td>
     <td>{{product.name}}</td>
+    <td>{{product.category.name}}</td>
     <td>{{product.price}}</td>
     <td>{{product.description}}</td>
+    <td>{{product.dateImport | date : 'd/MM/yyyy'}}</td>
+    <td>{{product.dateProduce | date : 'd/MM/yyyy'}}</td>
+    <td>{{product.dateEnd | date : 'd/MM/yyyy'}}</td>
     <td>
-      <button class="btn btn-primary" [routerLink]="['/product/edit',product.id]">Edit</button>
-      <button class="btn btn-danger" [routerLink]="['/product/delete',product.id]">Delete</button>
+      <button class="btn btn-primary" [routerLink]="['/product/edit',product.id]" id="edit">Chỉnh sửa</button>
+      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#deleteModal"
+              (click)="changeId(product.id, product.name)">
+        Xóa
+      </button>
     </td>
   </tr>
   </tbody>
 </table>
+
+<!-- Delete Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Xóa sản phẩm</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Bạn có muốn xóa sản phẩm này không ?
+        <p>Tên sản phẩm: {{name}}</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Thoát</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="delete(id)">Xóa</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<pagination-controls (pageChange)="p = $event"></pagination-controls>
+
+<!--<nav aria-label="Page navigation example">-->
+<!--  <ul class="pagination justify-content-center">-->
+<!--    <li class="page-item">-->
+<!--      <a class="page-link" (click)="previous()">Previous</a>-->
+<!--    </li>-->
+<!--    <li class="page-item">-->
+<!--      <a class="page-link" (click)="next()">Next</a>-->
+<!--    </li>-->
+<!--  </ul>-->
+<!--</nav>-->

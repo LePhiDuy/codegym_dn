@@ -1,4 +1,4 @@
-package vn.codegym.exam_module4.formatter;
+package vn.codegym.student_management.formatter;
 
 import org.springframework.format.Formatter;
 

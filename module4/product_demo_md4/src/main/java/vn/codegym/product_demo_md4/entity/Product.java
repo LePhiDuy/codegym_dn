@@ -1,5 +1,7 @@
 package vn.codegym.product_demo_md4.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,6 +24,7 @@ public class Product {
     private LocalDate expDate;
     private String manufacturer;
     @ManyToOne
+    @JsonManagedReference
     @JoinColumn(name = "category_id", referencedColumnName = "id")
     private Category category;
 }
