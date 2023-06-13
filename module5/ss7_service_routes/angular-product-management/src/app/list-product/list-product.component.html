@@ -51,7 +51,7 @@
     <td>{{product.dateProduce | date : 'd/MM/yyyy'}}</td>
     <td>{{product.dateEnd | date : 'd/MM/yyyy'}}</td>
     <td>
-      <button class="btn btn-primary" [routerLink]="['/product/edit',product.id]" id="edit">Chỉnh sửa</button>
+      <button class="btn btn-primary" [routerLink]="['/product/edit', product.id]" id="edit">Chỉnh sửa</button>
       <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#deleteModal"
               (click)="changeId(product.id, product.name)">
         Xóa

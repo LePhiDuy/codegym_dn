@@ -1,0 +1,11 @@
+
+]
+java:S2259C"GA "NullPointerException" could be thrown; "statement" is nullable here.(³úÀ‹
+]
+java:S2259'"GA "NullPointerException" could be thrown; "resultSet" is nullable here.(èå²×
+b
+java:S2095"GUse try-with-resources or close this "Statement" in a "finally" clause.(‡²€·ıÿÿÿÿ
+e
+java:S2095b"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(ê÷ø
+j
+java:S2095R"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(Ú³’ûÿÿÿÿ

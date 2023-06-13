@@ -1,0 +1,4 @@
+- Màu chủ đạo: xanh lá cây + trắng
+- Button xóa: màu đỏ/ icon
+- Edit: xanh dương
+- font chữ 

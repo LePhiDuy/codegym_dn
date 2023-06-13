@@ -1,0 +1,29 @@
+
+d
+java:S1192&"IDefine a constant instead of duplicating this literal "quantity" 3 times.(¢ÎÛüÿÿÿÿ
+a
+java:S1192'"FDefine a constant instead of duplicating this literal "color" 3 times.(¡»íüÿÿÿÿ
+b
+java:S1192)"LDefine a constant instead of duplicating this literal "id_category" 3 times.(»ÈÂ«
+\
+java:S1192%"FDefine a constant instead of duplicating this literal "price" 3 times.(èíş­
+f	java:S117)"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(»ÈÂ«
+k	java:S117\"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(õÀ™Âÿÿÿÿÿ
+u	java:S116"[Rename this field "GET_LIST_PRODUCT" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ù½»˜ùÿÿÿÿ
+o	java:S116"ZRename this field "ADD_NEW_PRODUCT" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(öâ 
+s	java:S116"YRename this field "UPDATE_PRODUCT" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÂæÍ±ûÿÿÿÿ
+s	java:S116"YRename this field "DELETE_PRODUCT" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ëğµıÿÿÿÿ
+y	java:S116"_Rename this field "SELECT_PRODUCT_BY_ID" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ô•«üùÿÿÿÿ
+s	java:S116"YRename this field "SEARCH_PRODUCT" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(µ¦¢©úÿÿÿÿ
+<
+java:S1170"!Make this final field static too.(ù½»˜ùÿÿÿÿ
+7
+java:S1170"!Make this final field static too.(öâ 
+<
+java:S1170"!Make this final field static too.(ÂæÍ±ûÿÿÿÿ
+<
+java:S1170"!Make this final field static too.(Ëğµıÿÿÿÿ
+<
+java:S1170"!Make this final field static too.(Ô•«üùÿÿÿÿ
+<
+java:S1170"!Make this final field static too.(µ¦¢©úÿÿÿÿ

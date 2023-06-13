@@ -1,0 +1,40 @@
+
+a
+java:S1192W"FDefine a constant instead of duplicating this literal "color" 3 times.(Œ»Şıÿÿÿÿ
+f
+java:S1192C"QDefine a constant instead of duplicating this literal "product/list.jsp" 3 times.(š•Ãu
+f
+java:S1192‰"JDefine a constant instead of duplicating this literal "/products" 3 times.(¹—ºˆúÿÿÿÿ
+_
+java:S1192A"IDefine a constant instead of duplicating this literal "products" 3 times.(Ø°õñ
+]
+java:S11927"GDefine a constant instead of duplicating this literal "search" 3 times.(äõŒ…
+\
+java:S1192U"FDefine a constant instead of duplicating this literal "price" 3 times.(ŠÂê¥
+a
+java:S1192B"KDefine a constant instead of duplicating this literal "categories" 6 times.(Ññó•
+S
+java:S4973’"<Strings and Boxed types should be compared using "equals()".(¶ÆÓâ
+S
+java:S4973’"<Strings and Boxed types should be compared using "equals()".(¶ÆÓâ
+S
+java:S4973’"<Strings and Boxed types should be compared using "equals()".(¶ÆÓâ
+S
+java:S4973’"<Strings and Boxed types should be compared using "equals()".(¶ÆÓâ
+~
+java:S1989"hHandle the following exceptions that could be thrown by "showFormCreate": ServletException, IOException.(›ÁÊÆ
+|
+java:S1989 "fHandle the following exceptions that could be thrown by "showEditForm": ServletException, IOException.(ÂõÓÁ
+‚
+java:S1989#"gHandle the following exceptions that could be thrown by "deleteProduct": IOException, ServletException.( ·•ßÿÿÿÿÿ
+<	java:S1310""Add a default case to this switch.(ë´åİşÿÿÿÿ
+}
+java:S19892"gHandle the following exceptions that could be thrown by "createProduct": ServletException, IOException.(·èæ¹
+‚
+java:S19895"gHandle the following exceptions that could be thrown by "updateProduct": ServletException, IOException.(—Ë¤±ùÿÿÿÿ
+}
+java:S19898"gHandle the following exceptions that could be thrown by "searchProduct": ServletException, IOException.(Õîùü
+
+java:S1130~"wRemove the declaration of thrown exception 'javax.servlet.ServletException', as it cannot be thrown from method's body.(Ğ«ù
+
+java:S1130¡"wRemove the declaration of thrown exception 'javax.servlet.ServletException', as it cannot be thrown from method's body.(æ¶ä6

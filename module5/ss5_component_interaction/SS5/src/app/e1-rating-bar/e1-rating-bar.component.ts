@@ -17,6 +17,7 @@ export class E1RatingBarComponent implements OnInit, OnChanges {
   rateChange = new EventEmitter<number>();
 
   ratingUnits: Array<IRatingUnit> = [];
+  a = 5;
   constructor() { }
 
   ngOnInit(): void {

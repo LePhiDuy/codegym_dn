@@ -1,0 +1,25 @@
+
+f
+java:S1301C"KReplace this "switch" statement by "if" statements to increase readability.(ë´åİşÿÿÿÿ
+~
+java:S1989"hHandle the following exceptions that could be thrown by "showCreateForm": IOException, ServletException.(ö§“
+‚
+java:S1989"gHandle the following exceptions that could be thrown by "deleteProduct": ServletException, IOException.( ·•ßÿÿÿÿÿ
+„
+java:S1989#"iHandle the following exceptions that could be thrown by "showProductList": ServletException, IOException.(Íò§øıÿÿÿÿ
+Y
+java:S1854-"CRemove this useless assignment to local variable "isDeleteSuccess".(½ÏÊ
+J
+java:S1481-"4Remove this unused "isDeleteSuccess" local variable.(½ÏÊ
+m
+java:S1989E"RHandle the following exception that could be thrown by "saveProduct": IOException.(‹“‚şÿÿÿÿ
+„
+java:S1989G"iHandle the following exceptions that could be thrown by "showProductList": ServletException, IOException.(Íò§øıÿÿÿÿ
+„
+java:S1989N"iHandle the following exceptions that could be thrown by "showProductList": ServletException, IOException.(Íò§øıÿÿÿÿ
+‚
+java:S1130U"lRemove the declaration of thrown exception 'java.io.IOException', as it cannot be thrown from method's body.(•™·Í
+E
+java:S1172U"/Remove this unused method parameter "response".(•™·Í
+m
+java:S2226"XRemove this misleading mutable servlet instance field or make it "static" and/or "final"(«ç•
